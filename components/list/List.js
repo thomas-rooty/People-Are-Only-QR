@@ -9,11 +9,8 @@ const List = () => {
   useEffect(() => {
     const fetchData = async () => {
       const personsData = await getPersons()
-      console.log(personsData)
-      // Result is lile this :
       setPersons(personsData)
     }
-
     fetchData()
   }, [])
 
