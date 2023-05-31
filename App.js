@@ -1,44 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Button } from 'react-native'
-import { BarCodeScanner } from 'expo-barcode-scanner'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
+import Home from './screens/home/Home'
+import AddPeople from './screens/addpeople/AddPeople'
 
-export default function App() {
-  const [hasPermission, setHasPermission] = useState(null)
-  const [scanned, setScanned] = useState(false)
+const Stack = createStackNavigator()
 
-  useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync()
-      setHasPermission(status === 'granted')
-    }
-
-    getBarCodeScannerPermissions()
-  }, [])
-
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true)
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`)
-  }
-
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>
-  }
-
+const App = () => {
   return (
-    <View style={styles.container}>
-      <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={StyleSheet.absoluteFillObject} />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="AddPeople" component={AddPeople} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-})
+export default App
