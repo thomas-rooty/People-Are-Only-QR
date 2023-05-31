@@ -20,6 +20,7 @@ const AddPeople = () => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true)
     addPerson(data)
+    alert(`A person has been added to the database!`)
   }
 
   if (hasPermission === null) {
