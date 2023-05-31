@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
+import MapView, { Marker } from 'react-native-maps'
 
 const OnePeople = ({ route }) => {
   const { personData } = route.params
@@ -23,6 +24,22 @@ const OnePeople = ({ route }) => {
           <Text>{personData.dob?.age} years old</Text>
         </View>
       </View>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: personData.location?.coordinates?.latitude,
+          longitude: personData.location?.coordinates?.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          coordinate={{
+            latitude: personData.location?.coordinates?.latitude,
+            longitude: personData.location?.coordinates?.longitude,
+          }}
+        />
+      </MapView>
     </View>
   )
 }
@@ -66,6 +83,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#888',
     marginBottom: 10,
+  },
+  map: {
+    width: '100%',
+    height: 200,
+    marginTop: 50,
+    marginBottom: 20,
+    borderRadius: 10,
   },
 })
 
