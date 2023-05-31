@@ -1,19 +1,28 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 const AddPeopleBtn = () => {
   const navigation = useNavigation()
+  const qrcodeimg = require('../../assets/qrcode.png')
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('AddPeople')}>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>SCAN</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.buttonContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('AddPeople')}>
+        <View style={styles.button}>
+          <Image source={qrcodeimg} style={{ width: 30, height: 30, position: 'absolute', left: 10, top: 10 }} />
+          <Text style={styles.buttonText}>SCAN</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 50,
+    right: 10,
+  },
   button: {
     backgroundColor: '#fff',
     justifyContent: 'center',
