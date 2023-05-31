@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 const PersonCard = ({ person }) => {
+  const calendar = require('../../assets/calendar.png')
   const navigation = useNavigation()
   const [personData, setPersonData] = useState({})
 
@@ -26,6 +27,11 @@ const PersonCard = ({ person }) => {
         </Text>
         <Text style={styles.email}>{personData.email}</Text>
       </View>
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Meeting', { personData })}>
+        <View style={styles.calendarContainer}>
+          <Image source={calendar} style={{ width: 30, height: 30 }} />
+        </View>
+      </TouchableOpacity>
     </TouchableOpacity>
   )
 }
@@ -53,6 +59,11 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     alignItems: 'flex-start',
+  },
+  calendarContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   name: {
     fontSize: 18,
